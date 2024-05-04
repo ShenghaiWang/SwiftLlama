@@ -9,7 +9,7 @@ class ViewModel {
 
     init() {
         let path = Bundle.main.path(forResource: "llama-2-7b.Q4_K_M", ofType: "gguf") ?? ""
-        swiftLlama = SwiftLlama(modelPath: path)!
+        swiftLlama = (try? SwiftLlama(modelPath: path))!
     }
 
     func run(for prompt: String) {

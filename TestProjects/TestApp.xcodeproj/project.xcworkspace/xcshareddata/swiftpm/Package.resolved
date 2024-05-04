@@ -3,7 +3,7 @@
     {
       "identity" : "llama.cpp",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ggerganov/llama.cpp/",
+      "location" : "https://github.com/ggerganov/llama.cpp.git",
       "state" : {
         "branch" : "master",
         "revision" : "a2ac89d6efb41b535778bfeaecaae8fe295b6ed3"

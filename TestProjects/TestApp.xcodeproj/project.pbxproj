@@ -21,7 +21,21 @@
 		4BB1E3E32BE6466A00F1D21A /* SwiftLlama in Frameworks */ = {isa = PBXBuildFile; productRef = 4BB1E3E22BE6466A00F1D21A /* SwiftLlama */; };
 		4BB1E3E52BE646CF00F1D21A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1334F92BE5C4AC0020AB8E /* ContentView.swift */; };
 		4BB1E3E62BE646CF00F1D21A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1334F52BE5C4AC0020AB8E /* ViewModel.swift */; };
+		4BEE1DB62BE70024001CE949 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE1DB52BE70024001CE949 /* main.swift */; };
+		4BEE1DBB2BE7003E001CE949 /* SwiftLlama in Frameworks */ = {isa = PBXBuildFile; productRef = 4BEE1DBA2BE7003E001CE949 /* SwiftLlama */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4BEE1DB12BE70024001CE949 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4B0B055A2BE5B44E002BC7AF /* TestApp-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestApp-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +50,8 @@
 		4B1334F72BE5C4AC0020AB8E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4B1334F82BE5C4AC0020AB8E /* TestApp_iOSApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestApp_iOSApp.swift; sourceTree = "<group>"; };
 		4B1334F92BE5C4AC0020AB8E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4BEE1DB32BE70024001CE949 /* swiftllama */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swiftllama; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BEE1DB52BE70024001CE949 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +71,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BEE1DB02BE70024001CE949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BEE1DBB2BE7003E001CE949 /* SwiftLlama in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -64,6 +88,7 @@
 				4BB1E3E42BE646BB00F1D21A /* Shared */,
 				4B1334F32BE5C4AC0020AB8E /* TestApp-iOS */,
 				4B0B05782BE5C451002BC7AF /* TestApp-Macos */,
+				4BEE1DB42BE70024001CE949 /* TestApp-Commandline */,
 				4B0B055B2BE5B44E002BC7AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,6 +98,7 @@
 			children = (
 				4B0B055A2BE5B44E002BC7AF /* TestApp-iOS.app */,
 				4B0B05772BE5C451002BC7AF /* TestApp-Macos.app */,
+				4BEE1DB32BE70024001CE949 /* swiftllama */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +159,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		4BEE1DB42BE70024001CE949 /* TestApp-Commandline */ = {
+			isa = PBXGroup;
+			children = (
+				4BEE1DB52BE70024001CE949 /* main.swift */,
+			);
+			path = "TestApp-Commandline";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,6 +210,26 @@
 			productReference = 4B0B05772BE5C451002BC7AF /* TestApp-Macos.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4BEE1DB22BE70024001CE949 /* swiftllama */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BEE1DB92BE70024001CE949 /* Build configuration list for PBXNativeTarget "swiftllama" */;
+			buildPhases = (
+				4BEE1DAF2BE70024001CE949 /* Sources */,
+				4BEE1DB02BE70024001CE949 /* Frameworks */,
+				4BEE1DB12BE70024001CE949 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = swiftllama;
+			packageProductDependencies = (
+				4BEE1DBA2BE7003E001CE949 /* SwiftLlama */,
+			);
+			productName = "TestApp-Commandline";
+			productReference = 4BEE1DB32BE70024001CE949 /* swiftllama */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -190,6 +244,9 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					4B0B05762BE5C451002BC7AF = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					4BEE1DB22BE70024001CE949 = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
@@ -212,6 +269,7 @@
 			targets = (
 				4B0B05592BE5B44E002BC7AF /* TestApp-iOS */,
 				4B0B05762BE5C451002BC7AF /* TestApp-Macos */,
+				4BEE1DB22BE70024001CE949 /* swiftllama */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +315,14 @@
 				4BB1E3E62BE646CF00F1D21A /* ViewModel.swift in Sources */,
 				4BB1E3E52BE646CF00F1D21A /* ContentView.swift in Sources */,
 				4B0B057A2BE5C451002BC7AF /* TestApp_MacosApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BEE1DAF2BE70024001CE949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BEE1DB62BE70024001CE949 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +564,32 @@
 			};
 			name = Release;
 		};
+		4BEE1DB72BE70024001CE949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 59Q22VRDBY;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4BEE1DB82BE70024001CE949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 59Q22VRDBY;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -528,6 +620,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		4BEE1DB92BE70024001CE949 /* Build configuration list for PBXNativeTarget "swiftllama" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BEE1DB72BE70024001CE949 /* Debug */,
+				4BEE1DB82BE70024001CE949 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -543,6 +644,10 @@
 			productName = SwiftLlama;
 		};
 		4BB1E3E22BE6466A00F1D21A /* SwiftLlama */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftLlama;
+		};
+		4BEE1DBA2BE7003E001CE949 /* SwiftLlama */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftLlama;
 		};

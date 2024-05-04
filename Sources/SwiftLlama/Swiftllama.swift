@@ -4,12 +4,9 @@ import llama
 public class SwiftLlama {
     private let model: LlamaModel
 
-    public init?(modelPath: String,
-                 modelConfiguration: Configuration = .init()) {
-        guard let model = LlamaModel(path: modelPath, configuration: modelConfiguration) else {
-            return nil
-        }
-        self.model = model
+    public init(modelPath: String,
+                 modelConfiguration: Configuration = .init()) throws {
+        self.model = try LlamaModel(path: modelPath, configuration: modelConfiguration)
     }
     
     @SwiftllamaActor

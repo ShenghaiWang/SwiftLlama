@@ -9,12 +9,13 @@ class LlamaModel {
     private var tokens: [Token]
     private var temporaryInvalidCChars: [CChar] = []
     private var generatedTokenAccount: Int32 = 0
+    private var ended = false
 
     var shouldContinue: Bool {
-        generatedTokenAccount < configuration.maxTokenCount
+        generatedTokenAccount < configuration.maxTokenCount && !ended
     }
 
-    init?(path: String, configuration: Configuration = .init()) {
+    init(path: String, configuration: Configuration = .init()) throws {
         self.configuration = configuration
         llama_backend_init()
         var model_params = llama_model_default_params()
@@ -22,18 +23,28 @@ class LlamaModel {
         model_params.n_gpu_layers = 0
         #endif
         guard let model = llama_load_model_from_file(path, model_params) else {
-            return nil
+            throw SwiftLlamaError.others("Cannot load model at path \(path)")
         }
         self.model = model
         guard let context = llama_new_context_with_model(model, configuration.contextParameters) else {
-            return nil
+            throw SwiftLlamaError.others("Cannot load model context")
         }
         self.context = context
         self.tokens = []
-        self.batch = llama_batch_init(512, 0, 1)
+        self.batch = llama_batch_init(Int32(configuration.batchSize), 0, 1)
+        try checkContextLength(context: context, model: model)
+    }
+
+    private func checkContextLength(context: Context, model: Model) throws {
+        let n_ctx = llama_n_ctx(context)
+        let n_ctx_train = llama_n_ctx_train(model)
+        if n_ctx > n_ctx_train {
+            throw SwiftLlamaError.others("Model was trained on \(n_ctx_train) context but tokens \(n_ctx) specified")
+        }
     }
 
     func start(for prompt: String) throws {
+        ended = false
         tokens = tokenize(text: prompt, addBos: true)
         temporaryInvalidCChars = []
         batch.clear()
@@ -70,11 +81,15 @@ class LlamaModel {
                 sorted: false
             )
 
-            return llama_sample_token_greedy(context, &candidatesArray)
+            llama_sample_top_k(context, &candidatesArray, Int32(configuration.topK), 1)
+            llama_sample_top_p(context, &candidatesArray, configuration.topP, 1)
+            llama_sample_temp(context, &candidatesArray, configuration.temperature)
+            return llama_sample_token(context, &candidatesArray)
         }()
 
-        if llama_token_is_eog(model, newToken) || generatedTokenAccount == configuration.maxTokenCount {
+        if llama_token_is_eog(model, newToken) {
             temporaryInvalidCChars.removeAll()
+            ended = true
             return ""
         }
 
