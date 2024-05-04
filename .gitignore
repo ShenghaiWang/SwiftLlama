@@ -1,0 +1,10 @@
+.DS_Store
+/.build
+/Packages
+xcuserdata/
+DerivedData/
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+TestProjects/Shared/Models/llama-2-7b.Q4_K_M.gguf
+IDEWorkspaceChecks.plist
