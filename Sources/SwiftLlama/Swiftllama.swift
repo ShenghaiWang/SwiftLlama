@@ -14,12 +14,12 @@ public class SwiftLlama {
     }
 
     @SwiftLlamaActor
-    public func start(for prompt: String) -> AsyncThrowingStream<String, Error> {
+    public func start(for prompt: Prompt) -> AsyncThrowingStream<String, Error> {
         .init { continuation in
             Task {
                 defer { model.clear() }
                 do {
-                    try model.start(for: prompt)
+                    try model.start(for: prompt.prompt)
                     while model.shouldContinue {
                         let delta = try model.continue()
                         continuation.yield(delta)
@@ -33,11 +33,11 @@ public class SwiftLlama {
     }
 
     @SwiftLlamaActor
-    public func start(for prompt: String) -> AnyPublisher<String, Error> {
+    public func start(for prompt: Prompt) -> AnyPublisher<String, Error> {
         Task {
             defer { model.clear() }
             do {
-                try model.start(for: prompt)
+                try model.start(for: prompt.prompt)
                 while model.shouldContinue {
                     let delta = try model.continue()
                     resultSubject.send(delta)

@@ -16,8 +16,11 @@ class ViewModel {
         swiftLlama = (try? SwiftLlama(modelPath: path))!
     }
 
-    func run(for prompt: String) {
+    func run(for userMessage: String) {
         result = ""
+        let prompt = Prompt(type: .llama,
+                            systemPrompt: "You are a helpful coding AI assistant.",
+                            userMessage: userMessage)
         Task {
             switch usingStream {
             case true:
