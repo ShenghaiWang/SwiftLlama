@@ -20,7 +20,7 @@ while true {
     let prompt = readLine() ?? ""
     print("Bot:", terminator: " ")
 
-    for try await value in await swiftLlama.inference(for: prompt) {
+    for try await value in await swiftLlama.start(for: prompt) {
         print(value, terminator: "")
     }
     print("")

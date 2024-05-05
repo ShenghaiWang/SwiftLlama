@@ -1,28 +1,52 @@
 import Foundation
 import llama
+import Combine
 
 public class SwiftLlama {
     private let model: LlamaModel
+    private lazy var resultSubject: CurrentValueSubject<String, Error> = {
+        .init("")
+    }()
 
     public init(modelPath: String,
                  modelConfiguration: Configuration = .init()) throws {
         self.model = try LlamaModel(path: modelPath, configuration: modelConfiguration)
     }
-    
-    @SwiftllamaActor
-    public func inference(for prompt: String) -> AsyncThrowingStream<String, Error> {
+
+    @SwiftLlamaActor
+    public func start(for prompt: String) -> AsyncThrowingStream<String, Error> {
         .init { continuation in
+            Task {
+                defer { model.clear() }
+                do {
+                    try model.start(for: prompt)
+                    while model.shouldContinue {
+                        let delta = try model.continue()
+                        continuation.yield(delta)
+                    }
+                    continuation.finish()
+                } catch {
+                    continuation.finish(throwing: error)
+                }
+            }
+        }
+    }
+
+    @SwiftLlamaActor
+    public func start(for prompt: String) -> AnyPublisher<String, Error> {
+        Task {
             defer { model.clear() }
             do {
                 try model.start(for: prompt)
                 while model.shouldContinue {
                     let delta = try model.continue()
-                    continuation.yield(delta ?? "")
+                    resultSubject.send(delta)
                 }
-                continuation.finish()
+                resultSubject.send(completion: .finished)
             } catch {
-                continuation.finish(throwing: error)
+                resultSubject.send(completion: .finished)
             }
         }
+        return resultSubject.eraseToAnyPublisher()
     }
 }
