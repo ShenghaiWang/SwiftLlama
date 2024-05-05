@@ -43,9 +43,9 @@ class LlamaModel {
         }
     }
 
-    func start(for prompt: String) throws {
+    func start(for prompt: Prompt) throws {
         ended = false
-        tokens = tokenize(text: prompt, addBos: true)
+        tokens = tokenize(text: prompt.prompt, addBos: true)
         temporaryInvalidCChars = []
         batch.clear()
 

@@ -37,13 +37,11 @@ public struct Prompt {
         <s>[INST] <<SYS>>
         \(systemPrompt)
         <</SYS>>
-        [
-        \(history.map { $0.llamaPrompt }.joined(separator: ",")),
+        \(history.last?.llamaPrompt ?? ""),
         {
             "role": "user",
-            "content": [INST]\(userMessage)[/INST],
+            "content": \(userMessage),
         }
-        ]
         [/INST]
         """
     }
@@ -59,7 +57,7 @@ public struct Prompt {
     private func encodeChatMLPrompt() -> String {
         """
         \(systemPrompt)
-        \(history.map { $0.prompt }.joined(separator: "\n"))
+        \(history.last?.chatMLPrompt ?? ""),
         "user: " \(userMessage)
         """
     }
@@ -67,7 +65,7 @@ public struct Prompt {
     private func encodeMistralPrompt() -> String {
         """
         <s>
-        \(history.map { $0.mistralPrompt }.joined(separator: "\n"))
+        \(history.last?.mistralPrompt ?? "")
         </s>
         [INST] \(userMessage) [/INST]
         """

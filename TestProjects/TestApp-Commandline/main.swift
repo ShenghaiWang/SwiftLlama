@@ -23,7 +23,8 @@ while true {
     for try await value in await swiftLlama
         .start(for: .init(type: .llama,
                           systemPrompt: "You are a helpful coding AI assistant.",
-                          userMessage: userMessage)) {
+                          userMessage: userMessage),
+        sessionSupport: true) {
         print(value, terminator: "")
     }
     print("")

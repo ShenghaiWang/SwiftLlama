@@ -6,7 +6,7 @@ public struct Chat {
 }
 
 extension Chat {
-    var prompt: String {
+    var chatMLPrompt: String {
         """
         "user:" \(user)
         "bot:" \(bot)
@@ -17,7 +17,7 @@ extension Chat {
         """
         {
             "role": "user",
-            "content": [INST]\(user)[/INST],
+            "content": \(user),
         },
         {
             "role": "system",
