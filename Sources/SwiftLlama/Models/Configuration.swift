@@ -13,11 +13,11 @@ public struct Configuration {
     public let batchSize: Int
 
     public init(seed: Int = 1234,
-                topK: Int = 50,
+                topK: Int = 40,
                 topP: Float = 0.9,
                 nCTX: Int = 2048,
-                temperature: Float = 0.6,
-                batchSize: Int = 512,
+                temperature: Float = 0.2,
+                batchSize: Int = 4096,
                 stopSequence: String? = nil,
                 historyLimit: Int = 10,
                 maxTokenCount: Int = 1024) {
@@ -36,7 +36,7 @@ public struct Configuration {
 extension Configuration {
     var contextParameters: ContextParameters {
         var params = llama_context_default_params()
-        let processorCount = max(1, min(8, ProcessInfo.processInfo.processorCount - 2))
+        let processorCount = max(1, min(16, ProcessInfo.processInfo.processorCount - 2))
         params.seed = UInt32(self.seed)
         params.n_ctx = max(8, UInt32(self.nCTX)) // minimum context size is 8
         params.n_threads = UInt32(processorCount)
