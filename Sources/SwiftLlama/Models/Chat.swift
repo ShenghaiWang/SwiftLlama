@@ -14,16 +14,10 @@ extension Chat {
     }
 
     var llamaPrompt: String {
-        """
-        {
-            "role": "user",
-            "content": \(user),
-        },
-        {
-            "role": "system",
-            "content": \(bot)
-        }
-        """
+         """
+         "[INST]" \(user) "[/INST]"
+         "[INST]" \(bot) "[/INST]"
+         """
     }
 
     var mistralPrompt: String {

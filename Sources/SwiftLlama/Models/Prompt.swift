@@ -34,14 +34,12 @@ public struct Prompt {
 
     private func encodeLlamaPrompt() -> String {
         """
-        <s>[INST] <<SYS>>
+        [INST]<<SYS>>
         \(systemPrompt)
-        <</SYS>>
-        \(history.last?.llamaPrompt ?? ""),
-        {
-            "role": "user",
-            "content": \(userMessage),
-        }
+        <</SYS>>[/INST]
+        \(history.last?.llamaPrompt ?? "")
+        [INST]
+        \(userMessage)
         [/INST]
         """
     }
