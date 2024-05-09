@@ -5,7 +5,7 @@ and the purpose of this repo is to provide a swiftier API for Swift developers.
 
 ## Install
 
-    .package(url: "https://github.com/ShenghaiWang/SwiftLlama.git", from: "0.1.0")
+    .package(url: "https://github.com/ShenghaiWang/SwiftLlama.git", from: "0.2.0")
 
 ## Usage
 
@@ -13,15 +13,19 @@ and the purpose of this repo is to provide a swiftier API for Swift developers.
 
     let swiftLlama = try SwiftLlama(modelPath: path))
     
-### 2 Call it 
+### 2 Call it
 
-#### Using AsyncStream method
+### Call without streaming
+
+    let response: String = try await swiftLlama.start(for: prompt)
+
+#### Using AsyncStream for streaming
 
     for try await value in await swiftLlama.start(for: prompt) {
         result += value
     }
 
-#### Using Combine publisher
+#### Using Combine publisher for streaming
 
     await swiftLlama.start(for: prompt)
         .sink { _ in

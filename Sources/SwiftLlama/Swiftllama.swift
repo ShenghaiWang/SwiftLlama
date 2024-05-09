@@ -87,4 +87,13 @@ public class SwiftLlama {
         }
         return resultSubject.eraseToAnyPublisher()
     }
+
+    @SwiftLlamaActor
+    public func start(for prompt: Prompt, sessionSupport: Bool = false) async throws -> String {
+        var result = ""
+        for try await value in await start(for: prompt) {
+            result += value
+        }
+        return result
+    }
 }
