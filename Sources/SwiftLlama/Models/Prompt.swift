@@ -6,6 +6,7 @@ public struct Prompt {
         case alpaca
         case llama
         case mistral
+        case phi
     }
 
     public let type: `Type`
@@ -29,6 +30,7 @@ public struct Prompt {
         case .alpaca: encodeAlpacaPrompt()
         case .chatML: encodeChatMLPrompt()
         case .mistral: encodeMistralPrompt()
+        case .phi: encodePhiPrompt()
         }
     }
 
@@ -66,6 +68,16 @@ public struct Prompt {
         \(history.last?.mistralPrompt ?? "")
         </s>
         [INST] \(userMessage) [/INST]
+        """
+    }
+
+    private func encodePhiPrompt() -> String {
+        """
+        \(history.last?.phiPrompt ?? "")
+        <|user|>
+        \(userMessage)
+        <|end|>
+        <|assistant|>
         """
     }
 }

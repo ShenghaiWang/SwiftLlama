@@ -7,29 +7,30 @@ public struct Configuration {
     public let topP: Float
     public let nCTX: Int
     public let temperature: Float
-    public let stopSequence: String?
     public let historyLimit: Int
     public let maxTokenCount: Int
     public let batchSize: Int
+    public let stopTokens: [String]
 
     public init(seed: Int = 1234,
                 topK: Int = 40,
                 topP: Float = 0.9,
                 nCTX: Int = 2048,
                 temperature: Float = 0.2,
-                batchSize: Int = 4096,
+                batchSize: Int = 2048,
                 stopSequence: String? = nil,
                 historyLimit: Int = 10,
-                maxTokenCount: Int = 1024) {
+                maxTokenCount: Int = 1024,
+                stopTokens: [String] = []) {
         self.seed = seed
         self.topK = topK
         self.topP = topP
         self.nCTX = nCTX
         self.batchSize = batchSize
         self.temperature = temperature
-        self.stopSequence = stopSequence
         self.historyLimit = historyLimit
         self.maxTokenCount = maxTokenCount
+        self.stopTokens = stopTokens
     }
 }
 

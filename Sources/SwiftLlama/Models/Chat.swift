@@ -27,4 +27,14 @@ extension Chat {
         """
     }
 
+    var phiPrompt: String {
+        """
+        <|user|>
+        \(user)
+        <|end|>
+        <|assistant|>
+        \(bot)
+        """
+    }
+
 }
