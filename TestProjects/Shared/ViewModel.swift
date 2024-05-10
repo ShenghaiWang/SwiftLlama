@@ -1,7 +1,6 @@
 import Foundation
 import SwiftLlama
 import SwiftUI
-
 import Combine
 
 @Observable

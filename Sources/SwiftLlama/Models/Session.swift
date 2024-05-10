@@ -1,17 +1,17 @@
 import Foundation
 
 struct Session {
-    var history: [Chat] = []
-    var prompt: Prompt
+    private var history: [Chat] = []
+    var lastPrompt: Prompt
     var currentResponse: String = ""
 
-    init(history: [Chat] = [], prompt: Prompt) {
+    init(history: [Chat] = [], lastPrompt: Prompt) {
         self.history = history
-        self.prompt = prompt
+        self.lastPrompt = lastPrompt
     }
 
     mutating func endRespose() {
-        history.append(Chat(user: prompt.userMessage, bot: currentResponse))
+        history.append(Chat(user: lastPrompt.userMessage, bot: currentResponse))
         currentResponse = ""
     }
 
@@ -20,6 +20,9 @@ struct Session {
     }
 
     var sessionPrompt: Prompt {
-        Prompt(type: prompt.type, userMessage: prompt.userMessage, history: history)
+        Prompt(type: lastPrompt.type,
+               systemPrompt: lastPrompt.systemPrompt,
+               userMessage: lastPrompt.userMessage,
+               history: history)
     }
 }

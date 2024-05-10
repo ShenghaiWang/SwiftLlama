@@ -30,16 +30,19 @@ public class SwiftLlama {
         self.configuration = modelConfiguration
     }
 
-    private func prepare(sessionSupport: Bool, for prompt: Prompt) {
+    private func prepare(sessionSupport: Bool, for prompt: Prompt) -> Prompt {
         contentStarted = false
         generatedTokenCache = ""
         self.sessionSupport = sessionSupport
         if sessionSupport {
             if session == nil {
-                session = Session(prompt: prompt)
+                session = Session(lastPrompt: prompt)
             } else {
-                session?.prompt = prompt
+                session?.lastPrompt = prompt
             }
+            return session?.sessionPrompt ?? prompt
+        } else {
+            return prompt
         }
     }
 
@@ -50,6 +53,14 @@ public class SwiftLlama {
     }
 
     private func response(for prompt: Prompt, output: (String) -> Void, finish: () -> Void) {
+        func finaliseOutput() {
+            configuration.stopTokens.forEach {
+                generatedTokenCache.replacingOccurrences(of: $0, with: "")
+            }
+            output(generatedTokenCache)
+            finish()
+            generatedTokenCache = ""
+        }
         defer { model.clear() }
         do {
             try model.start(for: prompt)
@@ -71,11 +82,9 @@ public class SwiftLlama {
                     }
                 }
             }
-            output(generatedTokenCache)
-            finish()
+            finaliseOutput()
         } catch {
-            output(generatedTokenCache)
-            finish()
+            finaliseOutput()
         }
     }
 
@@ -91,6 +100,7 @@ public class SwiftLlama {
                let index = generatedTokenCache.range(of: stopToken) {
                 let outputCandidate = String(generatedTokenCache[..<index.lowerBound])
                 output(outputCandidate)
+                generatedTokenCache = ""
                 return true
             } else { // no stop token generated
                 let outputCandidate = String(generatedTokenCache.prefix(maxLengthOfStopToken))
@@ -104,10 +114,10 @@ public class SwiftLlama {
 
     @SwiftLlamaActor
     public func start(for prompt: Prompt, sessionSupport: Bool = false) -> AsyncThrowingStream<String, Error> {
-        prepare(sessionSupport: sessionSupport, for: prompt)
+        let sessionPrompt = prepare(sessionSupport: sessionSupport, for: prompt)
         return .init { continuation in
             Task {
-                response(for: prompt) { [weak self] delta in
+                response(for: sessionPrompt) { [weak self] delta in
                     continuation.yield(delta)
                     self?.session?.response(delta: delta)
                 } finish: { [weak self] in
@@ -120,9 +130,9 @@ public class SwiftLlama {
 
     @SwiftLlamaActor
     public func start(for prompt: Prompt, sessionSupport: Bool = false) -> AnyPublisher<String, Error> {
-        prepare(sessionSupport: sessionSupport, for: prompt)
+        let sessionPrompt = prepare(sessionSupport: sessionSupport, for: prompt)
         Task {
-            response(for: prompt) { delta in
+            response(for: sessionPrompt) { delta in
                 resultSubject.send(delta)
                 session?.response(delta: delta)
             } finish: {

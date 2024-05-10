@@ -5,6 +5,7 @@ public struct Prompt {
         case chatML
         case alpaca
         case llama
+        case llama3
         case mistral
         case phi
     }
@@ -27,6 +28,7 @@ public struct Prompt {
     var prompt: String {
         switch type {
         case .llama: encodeLlamaPrompt()
+        case .llama3: encodeLlama3Prompt()
         case .alpaca: encodeAlpacaPrompt()
         case .chatML: encodeChatMLPrompt()
         case .mistral: encodeMistralPrompt()
@@ -38,11 +40,25 @@ public struct Prompt {
         """
         [INST]<<SYS>>
         \(systemPrompt)
-        <</SYS>>[/INST]
+        <</SYS>>
         \(history.last?.llamaPrompt ?? "")
+        [/INST]
         [INST]
         \(userMessage)
         [/INST]
+        """
+    }
+
+    private func encodeLlama3Prompt() -> String {
+        """
+        <|start_header_id|>system<|end_header_id|>
+
+        \(systemPrompt)<|eot_id|>
+        \(history.last?.llama3Prompt ?? "")
+        <|start_header_id|>user<|end_header_id|>
+        
+        \(userMessage)
+        <|eot_id|><|start_header_id|>assistant<|end_header_id|>
         """
     }
 
@@ -73,6 +89,7 @@ public struct Prompt {
 
     private func encodePhiPrompt() -> String {
         """
+        \(systemPrompt)
         \(history.last?.phiPrompt ?? "")
         <|user|>
         \(userMessage)

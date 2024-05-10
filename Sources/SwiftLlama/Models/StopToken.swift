@@ -16,4 +16,11 @@ public extension StopToken {
             "[INST]",
         ]
     }
+
+    static var llama3: [String] {
+        [
+            "<|start_header_id|>",
+            "<|eot_id|>",
+        ]
+    }
 }
