@@ -23,4 +23,10 @@ public extension StopToken {
             "<|eot_id|>",
         ]
     }
+
+    static var chatML: [String] {
+        [
+            "<|im_end|>"
+        ]
+    }
 }

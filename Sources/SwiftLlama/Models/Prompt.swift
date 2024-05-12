@@ -41,7 +41,7 @@ public struct Prompt {
         [INST]<<SYS>>
         \(systemPrompt)
         <</SYS>>
-        \(history.last?.llamaPrompt ?? "")
+        \(history.suffix(Configuration.historySize).map { $0.llamaPrompt }.joined())
         [/INST]
         [INST]
         \(userMessage)
@@ -54,7 +54,7 @@ public struct Prompt {
         <|start_header_id|>system<|end_header_id|>
 
         \(systemPrompt)<|eot_id|>
-        \(history.last?.llama3Prompt ?? "")
+        \(history.suffix(Configuration.historySize).map { $0.llama3Prompt }.joined())
         <|start_header_id|>user<|end_header_id|>
         
         \(userMessage)
@@ -72,16 +72,17 @@ public struct Prompt {
 
     private func encodeChatMLPrompt() -> String {
         """
-        \(systemPrompt)
-        \(history.last?.chatMLPrompt ?? ""),
-        "user: " \(userMessage)
+        \(history.suffix(Configuration.historySize).map { $0.chatMLPrompt }.joined())
+        "<|im_start|>user"
+        \(userMessage)<|im_end|>
+        <|im_start|>assistant
         """
     }
 
     private func encodeMistralPrompt() -> String {
         """
         <s>
-        \(history.last?.mistralPrompt ?? "")
+        \(history.suffix(Configuration.historySize).map { $0.mistralPrompt }.joined())
         </s>
         [INST] \(userMessage) [/INST]
         """
@@ -90,7 +91,7 @@ public struct Prompt {
     private func encodePhiPrompt() -> String {
         """
         \(systemPrompt)
-        \(history.last?.phiPrompt ?? "")
+        \(history.suffix(Configuration.historySize).map { $0.phiPrompt }.joined())
         <|user|>
         \(userMessage)
         <|end|>

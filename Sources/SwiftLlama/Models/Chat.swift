@@ -8,8 +8,10 @@ public struct Chat {
 extension Chat {
     var chatMLPrompt: String {
         """
-        "user:"\(user)
-        "bot:"\(bot)
+        "<|im_start|>user
+        \(user)<|im_end|>
+        <|im_start|>assistant
+        \(bot)<|im_end|>
         """
     }
 
@@ -25,8 +27,9 @@ extension Chat {
          <|start_header_id|>user<|end_header_id|>
 
          \(user)
-         <|eot_id|><|start_header_id|>assistant<|end_header_id|>"\(bot)"
+         <|eot_id|><|start_header_id|>assistant<|end_header_id|>"
 
+         \(bot)"
          <|eot_id|>
          """
     }

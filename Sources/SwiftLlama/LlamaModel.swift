@@ -31,7 +31,7 @@ class LlamaModel {
         }
         self.context = context
         self.tokens = []
-        self.batch = llama_batch_init(Int32(configuration.batchSize), 0, 1)
+        self.batch = llama_batch_init(Int32(configuration.batchSize * Configuration.historySize * 2), 0, 1)
         try checkContextLength(context: context, model: model)
     }
 

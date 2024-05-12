@@ -44,4 +44,6 @@ extension Configuration {
         params.n_threads_batch = UInt32(processorCount)
         return params
     }
+
+    static var historySize = 5
 }
