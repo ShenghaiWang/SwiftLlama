@@ -1,8 +1,14 @@
 import Foundation
 
 public struct Chat {
-    let user: String
-    let bot: String
+    public let user: String
+    public let bot: String
+
+    // The default initializer is unfortunately internal. So we have to define it explicitly.
+    public init(user: String, bot: String) {
+        self.user = user
+        self.bot = bot
+    }
 }
 
 extension Chat {
