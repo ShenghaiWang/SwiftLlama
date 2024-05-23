@@ -24,13 +24,8 @@ extension Chat {
 
     var llama3Prompt: String {
          """
-         <|start_header_id|>user<|end_header_id|>
-
-         \(user)
-         <|eot_id|><|start_header_id|>assistant<|end_header_id|>"
-
-         \(bot)"
-         <|eot_id|>
+         <|start_header_id|>user<|end_header_id|>\(user)<|eot_id|>
+         <|start_header_id|>assistant<|end_header_id|>\(bot)<|eot_id|>
          """
     }
 
