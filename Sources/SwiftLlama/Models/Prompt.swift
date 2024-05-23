@@ -50,16 +50,15 @@ public struct Prompt {
     }
 
     private func encodeLlama3Prompt() -> String {
-        """
-        <|start_header_id|>system<|end_header_id|>
-
-        \(systemPrompt)<|eot_id|>
-        \(history.suffix(Configuration.historySize).map { $0.llama3Prompt }.joined())
-        <|start_header_id|>user<|end_header_id|>
+        let prompt = """
+        <|start_header_id|>system<|end_header_id|>\(systemPrompt)<|eot_id|>
         
-        \(userMessage)
-        <|eot_id|><|start_header_id|>assistant<|end_header_id|>
+        \(history.suffix(Configuration.historySize).map { $0.llama3Prompt }.joined())
+        
+        <|start_header_id|>user<|end_header_id|>\(userMessage)<|eot_id|>
+        <|start_header_id|>assistant<|end_header_id|>
         """
+      return prompt
     }
 
     private func encodeAlpacaPrompt() -> String {
