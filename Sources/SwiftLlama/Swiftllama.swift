@@ -55,7 +55,7 @@ public class SwiftLlama {
     private func response(for prompt: Prompt, output: (String) -> Void, finish: () -> Void) {
         func finaliseOutput() {
             configuration.stopTokens.forEach {
-                generatedTokenCache.replacingOccurrences(of: $0, with: "")
+                generatedTokenCache = generatedTokenCache.replacingOccurrences(of: $0, with: "")
             }
             output(generatedTokenCache)
             finish()
