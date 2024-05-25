@@ -2,12 +2,12 @@ import Foundation
 import llama
 
 public struct Configuration {
+    static var historySize = 5
     public let seed: Int
     public let topK: Int
     public let topP: Float
     public let nCTX: Int
     public let temperature: Float
-    public let historyLimit: Int
     public let maxTokenCount: Int
     public let batchSize: Int
     public let stopTokens: [String]
@@ -19,7 +19,7 @@ public struct Configuration {
                 temperature: Float = 0.2,
                 batchSize: Int = 2048,
                 stopSequence: String? = nil,
-                historyLimit: Int = 10,
+                historySize: Int = 5,
                 maxTokenCount: Int = 1024,
                 stopTokens: [String] = []) {
         self.seed = seed
@@ -28,7 +28,7 @@ public struct Configuration {
         self.nCTX = nCTX
         self.batchSize = batchSize
         self.temperature = temperature
-        self.historyLimit = historyLimit
+        Self.historySize = historySize
         self.maxTokenCount = maxTokenCount
         self.stopTokens = stopTokens
     }
@@ -44,6 +44,4 @@ extension Configuration {
         params.n_threads_batch = UInt32(processorCount)
         return params
     }
-
-    public static var historySize = 5
 }
