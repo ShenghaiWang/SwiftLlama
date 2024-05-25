@@ -1,6 +1,6 @@
 import Foundation
 
 @globalActor
-actor SwiftLlamaActor {
-    static let shared = SwiftLlamaActor()
+public actor SwiftLlamaActor {
+    public static let shared = SwiftLlamaActor()
 }
