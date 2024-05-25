@@ -45,5 +45,5 @@ extension Configuration {
         return params
     }
 
-    static var historySize = 5
+    public static var historySize = 5
 }
