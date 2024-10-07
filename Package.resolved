@@ -6,7 +6,7 @@
       "location" : "https://github.com/ggerganov/llama.cpp/",
       "state" : {
         "branch" : "master",
-        "revision" : "60325fa56f61c228464c9f065db3aa6a61f2156e"
+        "revision" : "b6d6c5289f1c9c677657c380591201ddb210b649"
       }
     }
   ],
