@@ -68,7 +68,7 @@ class LlamaModel {
     }
 
     func `continue`() throws -> String {
-        var newToken =  llama_sampler_sample(sampler, context, batch.n_tokens - 1)
+        let newToken =  llama_sampler_sample(sampler, context, batch.n_tokens - 1)
 
         if llama_token_is_eog(model, newToken) || generatedTokenAccount == n_len {
             temporaryInvalidCChars.removeAll()
@@ -81,11 +81,12 @@ class LlamaModel {
         temporaryInvalidCChars.append(contentsOf: newTokenCChars)
 
         let newTokenStr: String
-        if let validString = String(validatingUTF8: temporaryInvalidCChars + [0]) {
+        if let validString = String(validating: temporaryInvalidCChars + [0], as: UTF8.self) {
             newTokenStr = validString
             temporaryInvalidCChars.removeAll()
         } else if let suffixIndex = temporaryInvalidCChars.firstIndex(where: { $0 != 0 }),
-                  let validSuffix = String(validatingUTF8: Array(temporaryInvalidCChars.suffix(from: suffixIndex)) + [0]) {
+                  let validSuffix = String(validating: Array(temporaryInvalidCChars.suffix(from: suffixIndex)) + [0],
+                                           as: UTF8.self) {
             newTokenStr = validSuffix
             temporaryInvalidCChars.removeAll()
         } else {

@@ -2,7 +2,7 @@ import Foundation
 import llama
 
 public struct Configuration {
-    static var historySize = 5
+    static let historySize = 5
     public let seed: Int
     public let topK: Int
     public let topP: Float
@@ -19,7 +19,6 @@ public struct Configuration {
                 temperature: Float = 0.2,
                 batchSize: Int = 2048,
                 stopSequence: String? = nil,
-                historySize: Int = 5,
                 maxTokenCount: Int = 1024,
                 stopTokens: [String] = []) {
         self.seed = seed
@@ -28,7 +27,6 @@ public struct Configuration {
         self.nCTX = nCTX
         self.batchSize = batchSize
         self.temperature = temperature
-        Self.historySize = historySize
         self.maxTokenCount = maxTokenCount
         self.stopTokens = stopTokens
     }
