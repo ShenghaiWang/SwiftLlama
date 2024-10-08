@@ -10,7 +10,7 @@ struct Session {
         self.lastPrompt = lastPrompt
     }
 
-    mutating func endRespose() {
+    mutating func endResponse() {
         history.append(Chat(user: lastPrompt.userMessage, bot: currentResponse))
         currentResponse = ""
     }
