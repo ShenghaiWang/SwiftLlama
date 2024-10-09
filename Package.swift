@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftLlama",
     platforms: [
-        .macOS(.v15),
+        .macOS(.v14),
         .iOS(.v18),
         .watchOS(.v11),
         .tvOS(.v18),
