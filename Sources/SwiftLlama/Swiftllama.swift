@@ -122,7 +122,7 @@ public class SwiftLlama {
                     self?.session?.response(delta: delta)
                 } finish: { [weak self] in
                     continuation.finish()
-                    self?.session?.endRespose()
+                    self?.session?.endResponse()
                 }
             }
         }
@@ -137,7 +137,7 @@ public class SwiftLlama {
                 session?.response(delta: delta)
             } finish: {
                 resultSubject.send(completion: .finished)
-                session?.endRespose()
+                session?.endResponse()
             }
         }
         return resultSubject.eraseToAnyPublisher()
