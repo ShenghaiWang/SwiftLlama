@@ -8,6 +8,7 @@ public struct Prompt {
         case llama3
         case mistral
         case phi
+        case gemma
     }
 
     public let type: `Type`
@@ -33,6 +34,7 @@ public struct Prompt {
         case .chatML: encodeChatMLPrompt()
         case .mistral: encodeMistralPrompt()
         case .phi: encodePhiPrompt()
+        case .gemma: encodeGemmaPrompt()
         }
     }
 
@@ -95,6 +97,19 @@ public struct Prompt {
         \(userMessage)
         <|end|>
         <|assistant|>
+        """
+    }
+
+    private func encodeGemmaPrompt() -> String {
+        """
+        <start_of_turn>system
+        \(systemPrompt)
+        <end_of_turn>
+        \(history.suffix(Configuration.historySize).map { $0.gemmaPrompt }.joined())
+        <start_of_turn>user
+        \(userMessage)
+        <end_of_turn>
+        <start_of_turn>model
         """
     }
 }
