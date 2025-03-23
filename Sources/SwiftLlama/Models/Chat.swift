@@ -51,4 +51,15 @@ extension Chat {
         """
     }
 
+    var gemmaPrompt: String {
+        """
+        <start_of_turn>user
+        \(user)
+        <end_of_turn>
+        <start_of_turn>model
+        \(bot)
+        <end_of_turn>
+        """
+    }
+
 }
