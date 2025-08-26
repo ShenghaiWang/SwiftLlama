@@ -8,3 +8,4 @@ DerivedData/
 .netrc
 TestProjects/Shared/Models/llama-2-7b.Q4_K_M.gguf
 IDEWorkspaceChecks.plist
+TestProjects/Shared/Models/*.gguf

@@ -90,25 +90,34 @@ public class SwiftLlama {
 
     /// Handling logic of StopToken
     private func needToStop(after delta: String, output: (String) -> Void) -> Bool {
+        // If no stop tokens, just stream through
         guard maxLengthOfStopToken > 0 else {
             output(delta)
             return false
         }
+
         generatedTokenCache += delta
-        if generatedTokenCache.count >= maxLengthOfStopToken * 2 {
-            if let stopToken = configuration.stopTokens.first(where: { generatedTokenCache.contains($0) }),
-               let index = generatedTokenCache.range(of: stopToken) {
-                let outputCandidate = String(generatedTokenCache[..<index.lowerBound])
-                output(outputCandidate)
-                generatedTokenCache = ""
-                return true
-            } else { // no stop token generated
-                let outputCandidate = String(generatedTokenCache.prefix(maxLengthOfStopToken))
-                generatedTokenCache.removeFirst(outputCandidate.count)
-                output(outputCandidate)
-                return false
-            }
+
+        // 1) If any stop token appears, cut output before it and stop
+        if let stopRange = configuration.stopTokens
+            .compactMap({ generatedTokenCache.range(of: $0) })
+            .min(by: { $0.lowerBound < $1.lowerBound }) // earliest occurrence
+        {
+            let before = String(generatedTokenCache[..<stopRange.lowerBound])
+            if !before.isEmpty { output(before) }
+            generatedTokenCache.removeAll(keepingCapacity: false)
+            return true
         }
+
+        // 2) Stream everything except a small tail so split stop tokens are caught next time
+        let tail = max(maxLengthOfStopToken - 1, 0)
+        if generatedTokenCache.count > tail {
+            let cut = generatedTokenCache.index(generatedTokenCache.endIndex, offsetBy: -tail)
+            let safe = String(generatedTokenCache[..<cut])
+            if !safe.isEmpty { output(safe) }
+            generatedTokenCache.removeFirst(safe.count)
+        }
+
         return false
     }
 

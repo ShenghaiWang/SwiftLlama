@@ -52,16 +52,36 @@ public struct Prompt {
     }
 
     private func encodeLlama3Prompt() -> String {
-        let prompt = """
-        <|start_header_id|>system<|end_header_id|>\(systemPrompt)<|eot_id|>
-        
-        \(history.suffix(Configuration.historySize).map { $0.llama3Prompt }.joined())
-        
-        <|start_header_id|>user<|end_header_id|>\(userMessage)<|eot_id|>
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.timeZone = TimeZone.current
+        df.dateFormat = "d MMM yyyy"
+        let today = df.string(from: Date())
+
+        let systemBlock = """
+        <|start_header_id|>system<|end_header_id|>
+
+        Cutting Knowledge Date: December 2023
+        Today Date: \(today)
+
+        \(systemPrompt)<|eot_id|>
+        """
+
+        let historyBlock = history.suffix(Configuration.historySize)
+            .map { $0.llama3Prompt }
+            .joined(separator: "\n")
+
+        let tail = """
+        <|start_header_id|>user<|end_header_id|>
+        \(userMessage)<|eot_id|>
         <|start_header_id|>assistant<|end_header_id|>
         """
-      return prompt
+
+        return [systemBlock, historyBlock, tail]
+            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            .joined(separator: "\n\n")
     }
+
 
     private func encodeAlpacaPrompt() -> String {
         """

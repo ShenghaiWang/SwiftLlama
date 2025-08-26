@@ -29,9 +29,11 @@ extension Chat {
 
     var llama3Prompt: String {
         [
-            user.isEmpty ? nil : "<|start_header_id|>user<|end_header_id|>\(user)<|eot_id|>",
-            bot.isEmpty ? nil : "<|start_header_id|>assistant<|end_header_id|>\(bot)<|eot_id|>",
-        ].compactMap{ $0 }.joined(separator: "\n")
+            user.isEmpty ? nil : "<|start_header_id|>user<|end_header_id|>\n\(user)<|eot_id|>",
+            bot.isEmpty  ? nil : "<|start_header_id|>assistant<|end_header_id|>\n\(bot)<|eot_id|>"
+        ]
+        .compactMap { $0 }
+        .joined(separator: "\n")
     }
 
     var mistralPrompt: String {
