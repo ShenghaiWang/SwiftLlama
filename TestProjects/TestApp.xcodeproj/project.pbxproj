@@ -23,6 +23,10 @@
 		4BB1E3E62BE646CF00F1D21A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1334F52BE5C4AC0020AB8E /* ViewModel.swift */; };
 		4BEE1DB62BE70024001CE949 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE1DB52BE70024001CE949 /* main.swift */; };
 		4BEE1DBB2BE7003E001CE949 /* SwiftLlama in Frameworks */ = {isa = PBXBuildFile; productRef = 4BEE1DBA2BE7003E001CE949 /* SwiftLlama */; };
+		863E28422E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf in Resources */ = {isa = PBXBuildFile; fileRef = 863E28412E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf */; };
+		863E28432E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf in Resources */ = {isa = PBXBuildFile; fileRef = 863E28412E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf */; };
+		866F6EF22E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf in Resources */ = {isa = PBXBuildFile; fileRef = 866F6EF12E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf */; };
+		866F6EF32E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf in Resources */ = {isa = PBXBuildFile; fileRef = 866F6EF12E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +57,8 @@
 		4B51A47B2BE7449700F65BFC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4BEE1DB32BE70024001CE949 /* swiftllama */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swiftllama; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BEE1DB52BE70024001CE949 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		863E28412E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Llama-3.2-1B-Instruct.Q3_K_S.gguf"; sourceTree = "<group>"; };
+		866F6EF12E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Llama-3.2-3B-Instruct-Q4_K_L.gguf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,8 @@
 		4B10A3302BE5CD6600BEA6A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				866F6EF12E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf */,
+				863E28412E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf */,
 				4B10A3312BE5CD6600BEA6A1 /* llama-2-7b.Q4_K_M.gguf */,
 			);
 			name = Models;
@@ -282,7 +290,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1334FC2BE5C4AC0020AB8E /* Preview Assets.xcassets in Resources */,
+				866F6EF32E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf in Resources */,
 				4B1334FA2BE5C4AC0020AB8E /* Assets.xcassets in Resources */,
+				863E28432E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf in Resources */,
 				4B58A1432BE607B900A6CF3C /* llama-2-7b.Q4_K_M.gguf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +302,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B0B05812BE5C452002BC7AF /* Preview Assets.xcassets in Resources */,
+				866F6EF22E5527B300698A28 /* Llama-3.2-3B-Instruct-Q4_K_L.gguf in Resources */,
 				4B0B057E2BE5C452002BC7AF /* Assets.xcassets in Resources */,
+				863E28422E54EC6900DF0B0D /* Llama-3.2-1B-Instruct.Q3_K_S.gguf in Resources */,
 				4B10A3322BE5CD6600BEA6A1 /* llama-2-7b.Q4_K_M.gguf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,7 +530,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TestApp-Macos/Preview Content\"";
-				DEVELOPMENT_TEAM = 59Q22VRDBY;
+				DEVELOPMENT_TEAM = 96737BLUB5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -527,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "test.tim.TestApp-Macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -547,7 +559,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TestApp-Macos/Preview Content\"";
-				DEVELOPMENT_TEAM = 59Q22VRDBY;
+				DEVELOPMENT_TEAM = 96737BLUB5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -556,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "test.tim.TestApp-Macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
